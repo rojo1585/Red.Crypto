@@ -23,5 +23,23 @@ public static class SymmetricEncryption
         byte[] encryptedBytes = encryptor.TransformFinalBlock(plainTextBytes, 0, plainTextBytes.Length);
         return (encryptedBytes, algorithm.Key, algorithm.IV);
     }
+    /// <summary>
+    /// Decrypts with symmetric algorithms such as aes or TripleDES
+    /// </summary>
+    public static string Decrypt<TCrypto>(byte[] encryptedBytes, byte[] key, byte[] iv) where TCrypto : SymmetricAlgorithm, new()
+    {
+        if (encryptedBytes == null || encryptedBytes.Length == 0)
+            throw new ArgumentException("Encrypted bytes cannot be null or empty.");
+        if (key == null || key.Length == 0)
+            throw new ArgumentException("Key cannot be null or empty.");
+        if (iv == null || iv.Length == 0)
+            throw new ArgumentException("IV cannot be null or empty.");
 
+        using var algorithm = new TCrypto();
+        algorithm.Padding = PaddingMode.PKCS7;
+
+        using var decrypted = algorithm.CreateDecryptor(key, iv);
+        byte[] decryptedBytes = decrypted.TransformFinalBlock(encryptedBytes, 0, encryptedBytes.Length);
+        return Encoding.UTF8.GetString(decryptedBytes);
+    }
 }
