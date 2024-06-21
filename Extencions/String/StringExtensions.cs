@@ -12,6 +12,5 @@ namespace Red.Crypto.Extensions.String
         }
         public static (byte[] encryptedData, byte[] key, byte[] iv) EncryptAES(this string str, int keySize = 256) =>
             AES.EncryptAES(str, keySize);
-
     }
 }
