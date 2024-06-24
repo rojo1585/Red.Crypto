@@ -11,8 +11,8 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <PackageReleaseNotes>
-      -AES encryption
-      -AES decryption
+      -Generic symmetric encryption
+      -Generic symmetric decryption
     </PackageReleaseNotes>
   </PropertyGroup>
   <ItemGroup>
